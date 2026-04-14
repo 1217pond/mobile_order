@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>モバイルオーダー</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cyberpunk.css">
+    <link rel="stylesheet" href="cyber_button.css">
+    <link rel="preload" as="font" href="./fonts/Kaisotai-Next-UP-B.ttf">
+</head>
+<body>
+    <div id="title_scene" class="scene">
+        <section class="cyberpunk">
+            <h1 class="cyberpunk glitched center">？？？？？<br>レストラン</h1>
+
+            <button class="cybr-btn center bottom" id="start_trg">
+                開始
+                <span aria-hidden class="cybr-btn__glitch">開始</span>
+                <span aria-hidden class="cybr-btn__tag">start</span>
+            </button>
+        </section>
+    </div>
+    <div id="menu_scene" class="scene" style="display:none">
+        <header>？？？？？レストラン</header>
+        <section class="cyberpunk">
+            <h1 class="cyberpunk">メニュー</h1>
+            <p class="cyberpunk scannedv">
+                注意事項
+            </p>
+            <ol class="cyberpunk">
+                <li>チケットを持っている方のみ、主食を食べることができます。</li>
+                <li>副食はそれぞれおひとり様1品までです。</li>
+                <li>**:**,**:**に在庫が補充されます。</li>
+            </ol>
+        </section>
+        <section class="cyberpunk black both">
+            <h2 class="cyberpunk">主食</h2>
+            <p class="cyberpunk scannedh">
+                meal_1
+                <img class="cyberpunk" src="https://dummyimage.com/600x400/ff00ff/fff" alt="" />
+                <button class="cyberpunk red select_trg" data-target="meal_1" data-is_main="true" data-price="0">かごに入れる</button>
+            </p>
+            
+            <h2 class="cyberpunk">副食</h2>
+            <p class="cyberpunk scannedh">
+                meal_2<br>￥250-
+                <img class="cyberpunk" src="https://dummyimage.com/600x400/ff00ff/fff" alt="" />
+                <button class="cyberpunk red select_trg" data-target="meal_2" data-price="250">かごに入れる</button>
+            </p>
+            <p class="cyberpunk scannedh">
+                meal_3<br>￥120-
+                <img class="cyberpunk" src="https://dummyimage.com/600x400/ff00ff/fff" alt="" />
+                <button class="cyberpunk red select_trg" data-target="meal_3" data-price="120">かごに入れる</button>
+            </p>
+            <p class="cyberpunk scannedh">
+                meal_4<br>￥180-
+                <img class="cyberpunk" src="https://dummyimage.com/600x400/ff00ff/fff" alt="" />
+                <button class="cyberpunk red select_trg" data-target="meal_4" data-price="180">かごに入れる</button>
+            </p>
+        </section>
+        <section class="cyberpunk both">
+            <button class="cyberpunk red center" id="order_trg">かごを確認</button>
+        </section>
+    </div>
+    <div class="scene" id="check_scene" style="display:none">
+        <header>？？？？？レストラン</header>
+        <section class="cyberpunk">
+            <p class="cyberpunk">
+                これらを注文してもよろしいですか？
+            </p>
+        </section>
+        <section class="cyberpunk black both">
+            <h3>かご</h3>
+            <ol class="cyberpunk" id="order_list"></ol>
+            <h3>合計金額</h3>
+            <p id="total_price"></p>
+        </section>
+        <section class="cyberpunk both">
+            <button class="cyberpunk green center" id="order_apply_trg">注文を確定</button><br>
+            <button class="cyberpunk red center" id="order_cancel_trg">メニューに戻る</button>
+        </section>
+    </div>
+    <div class="scene" id="receipt_scene" style="display:none">
+        <header>？？？？？レストラン</header>
+        <section class="cyberpunk">
+            <h1>注文完了</h1>
+            <p>下の注文IDと二次元コードのスクリーンショットを撮っておいてください。食事をお渡しできるようになりましたらスタッフがあなたの注文IDを呼びますのでお待ちください。</p>
+        </section>
+        <section class="cyberpunk black both">
+            <h3>注文ID</h3>
+            <p>
+                0002
+            </p>
+            <h3>二次元コード</h3>
+            <img class="cyberpunk" src="./imgs/QR_175083.png">
+        </section>
+        <section class="cyberpunk both">
+            <h3>あなたより前に並んでいる人数</h3>
+            <p>
+                3名
+            </p>
+            <button class="cyberpunk red center" id="reload_trg">再読み込み</button>
+        </section>
+    </div>
+    <div id="wait_window" style="display:none">
+        <p class="cyberpunk"></p>
+    </div>
+    <div id="alert_window" style="display:none">
+        <p class="cyberpunk"></p>
+        <button class="cyberpunk blue center" id="alert_close_trg">OK</button>
+    </div>
+
+
+    <script
+        src="https://code.jquery.com/jquery-4.0.0.slim.min.js"
+        integrity="sha256-8DGpv13HIm+5iDNWw1XqxgFB4mj+yOKFNb+tHBZOowc="
+        crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>

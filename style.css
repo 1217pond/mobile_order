@@ -1,0 +1,63 @@
+@font-face {
+  font-family: 'Hacked';
+  src: url("./fonts/Kaisotai-Next-UP-B.ttf") format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root{
+    font-size: 6vw;
+}
+
+body{
+    font-family: "Hacked", sans-serif;
+    pointer-events: none;
+}
+
+body *{
+    pointer-events: all;
+}
+
+.center{
+    text-align: center;
+    width: 100%;
+}
+
+.scene{
+    pointer-events: none;
+}
+
+header{
+    background-color: #000; 
+    height: 2em;
+    color: white;
+}
+
+.bottom{
+    margin-top:40vh !important;
+    margin-bottom: 20vh !important;
+}
+
+#alert_window,#wait_window{
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height:100vh;
+    position: fixed;
+    z-index:10;
+    pointer-events: all;
+    background-color: #000000d0;
+}
+
+#wait_window p, #alert_window p{
+    margin-left:15vw;
+    margin-top:30vh;
+    width: 70vw;
+}
+
+#alert_window button{
+
+    margin-left:30vw;
+    margin-top:10vh;
+    width: 40vw;
+}
