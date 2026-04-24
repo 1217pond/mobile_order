@@ -130,10 +130,11 @@ $("#order_apply_trg").on("click",()=>{
         $("#order_id").text(data.order_id);
         let receipt_uri = encodeURI(
             location.hostname+
-            `/check.html?s=${urlParams.get("seat_id")}&o=${data.order_id}&u=${data.uuid}&`+
+            `/mobile_order/check.html?s=${urlParams.get("seat_id")}&o=${data.order_id}&u=${data.uuid}&`+
             `kebab=${order.kebab|0}&nope=${order.nope|0}&ice=${order.ice|0}&crepe=${order.crepe|0}&chicken=${order.chicken|0}&doritos=${order.doritos|0}`
         );
         console.log(receipt_uri);
+        $("#qr").empty();
         $("#qr").qrcode({
             text:receipt_uri,
             width:500,height:500
