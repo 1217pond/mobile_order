@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>確認</title>
+    <style>
+        :root{
+            font-size: 6vw;
+            font-family: sans-serif;
+        }
+        .gray_box{
+            background-color: #bbb;
+            padding: 1rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>注文番号</h1>
+    <div class="gray_box" id="order_id"></div>
+    <h1>座席番号</h1>
+    <div class="gray_box" id="seat_id"></div>
+    <h1>合計金額</h1>
+    <div class="gray_box" id="total_price"></div>
+    <h1>注文内容</h1>
+    <div class="gray_box" id="order_list"></div>
+
+    <script
+        src="https://code.jquery.com/jquery-4.0.0.slim.min.js"
+        integrity="sha256-8DGpv13HIm+5iDNWw1XqxgFB4mj+yOKFNb+tHBZOowc="
+        crossorigin="anonymous"></script>
+
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const order_data = {
+            "kebab":{
+                "price":0,
+                "name":"ケバブ"
+            },
+            "nope":{
+                "price":150,
+                "name":"NOPE"
+            },
+            "ice":{
+                "price":80,
+                "name":"かき氷"
+            },
+            "crepe":{
+                "price":120,
+                "name":"クレープ"
+            },
+            "chicken":{
+                "price":130,
+                "name":"焼き鳥"
+            },
+            "doritos":{
+                "price":100,
+                "name":"ドリトス"
+            },
+        };
+        $("#order_id").text(urlParams.get("o"));
+        $("#seat_id").text("s-"+urlParams.get("s"));
+        order_text = "";
+        total_price = 0;
+        for(let [meal_id,meal_info] of Object.entries(order_data)){
+            if(Number(urlParams.get(meal_id))>0){
+                order_text += `${meal_info.name} × ${urlParams.get(meal_id)}<br>`;
+                total_price += meal_info.price * Number(urlParams.get(meal_id));
+            }
+        }
+        $("#total_price").text(`¥${total_price}-`);
+        $("#order_list").html(order_text);
+
+    </script>
+</body>
+</html>

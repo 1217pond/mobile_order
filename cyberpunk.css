@@ -11,6 +11,7 @@
   --purple-color: purple;
   --neon-color: #39ff14;
   --black-color: #000;
+  --white-color: #fff;
 }
 
 body {
@@ -330,7 +331,7 @@ p.cyberpunk:before,
   padding: 2px 2px 0px 2px;
   font-size: 0.6rem;
   line-height: 0.6rem;
-  color: var(--black-color);
+  color: var(--white-color);
   background-color: var(--blue-color);
   border-left: 2px solid var(--border-color);
 }
@@ -915,7 +916,7 @@ a.cyberpunk:after {
   padding: 2px 2px 0px 2px;
   font-size: 0.6rem;
   line-height: 0.6rem;
-  color: var(--black-color);
+  color: var(--white-color);
   background-color: var(--blue-color);
   border-left: 2px solid var(--border-color);
 }
@@ -1086,7 +1087,7 @@ input[type=submit].cyberpunk:focus:before  {
 /* Section */
 section.cyberpunk {
   background-color: var(--blue-color);
-  color: var(--black-color);
+  color: var(--white-color);
   padding: 60px 60px;
   position: relative;
   margin-top: -1px;
@@ -1294,7 +1295,7 @@ section.cyberpunk.black p.cyberpunk.inverse,
 section.cyberpunk.black p.inverse {
   border: none;
   background-color: var(--blue-color);
-  color: var(--black-color);
+  color: var(--white-color);
   border-right: 2px solid var(--border-color);
 }
 
@@ -1305,7 +1306,7 @@ section.cyberpunk.black ul > li:before:not(ul.steps li:before) {
 
 section.cyberpunk.black ol.cyberpunk li:before,
 section.cyberpunk.black ol > li:before {
-  color: var(--black-color);
+  color: var(--white-color);
   background-color: var(--blue-color);
 }
 
@@ -1351,7 +1352,7 @@ aside.cyberpunk ul li:hover {
 aside.cyberpunk ul li a {
   display: block;
   padding: 5px 10px;
-  color: var(--black-color);
+  color: var(--white-color);
   transform: skew(15deg);
   transition: color 0.3s;
 }
@@ -1585,7 +1586,7 @@ aside.cyberpunk a:after {
 .cyberpunk ul.steps li {
   display: flex;
   align-items: end;
-  color: var(--black-color);
+  color: var(--white-color);
   padding: 0px 20px 5px 0px;
   position: relative;
   font-size: 12px;
@@ -1647,7 +1648,7 @@ aside.cyberpunk a:after {
 
 .cyberpunk.black ul.steps li.current:before {
   background-color: var(--blue-color);
-  color: var(--black-color);
+  color: var(--white-color);
 }
 
 .cyberpunk ul.steps li:after {

@@ -1,12 +1,13 @@
 @font-face {
   font-family: 'Hacked';
-  src: url("./fonts/Kaisotai-Next-UP-B.ttf") format('truetype');
+  src: url("./fonts/KH-Dot-Akihabara-16.ttf") format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 :root{
     font-size: 6vw;
+    color: #fff;
 }
 
 body{
@@ -34,11 +35,11 @@ header{
 }
 
 .bottom{
-    margin-top:40vh !important;
+    margin-top:30vh !important;
     margin-bottom: 20vh !important;
 }
 
-#alert_window,#wait_window{
+.popup-window{
     top: 0;
     left: 0;
     width: 100vw;
@@ -49,15 +50,27 @@ header{
     background-color: #000000d0;
 }
 
-#wait_window p, #alert_window p{
-    margin-left:15vw;
+.popup-window p{
+    margin-left:10vw;
     margin-top:30vh;
-    width: 70vw;
+    width: 80vw;
 }
 
-#alert_window button{
-
-    margin-left:30vw;
+.popup-window button{
+    position: absolute;
+    margin-left:20vw !important; 
     margin-top:10vh;
-    width: 40vw;
+    width: 60vw;
+}
+
+.text_small{
+    font-size: 0.7em;
+}
+
+.text_count{
+    font-size: 1.3em;
+}
+
+#qr canvas{
+    width: 100%;
 }
