@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スタッフ専用</title>
+    <style>
+        :root{
+            font-size: 4vw;
+            font-family: sans-serif;
+        }
+        .gray_box{
+            background-color: #bbb;
+            padding: 1rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+        .simple_box{
+            padding: 1rem;
+            font-size: 1rem;
+            text-align: center;
+            border: 0.1em solid black;
+        }
+        .gray_box canvas{
+            width: 70vw;
+        }
+        button{
+            margin: 15vw;
+            font-size:2rem;
+            width: 60vw;
+        }
+        .popup-window{
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height:100vh;
+            position: fixed;
+            z-index:10;
+            pointer-events: all;
+            background-color: #000000d0;
+            font-size: 2rem;
+            color: white;
+            text-align: center;
+            padding-top: 20rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>担当</h1>
+    <h1>注文番号</h1>
+    <div class="gray_box" id="order_id"></div>
+    <h1>座席番号</h1>
+    <div class="gray_box" id="seat_id"></div>
+    <h1>合計金額</h1>
+    <div class="gray_box" id="total_price"></div>
+    <h1>注文内容</h1>
+    <div class="gray_box" id="order_list"></div>
+    <button id="assign_trg">割り当ての取得</button>
+    <h1>引継ぎQR</h1>
+    <div class="gray_box" id="qr"></div>
+    <div id="wait_window" class="popup-window" style="display:none"></div>
+    <script
+        src="https://code.jquery.com/jquery-4.0.0.slim.min.js"
+        integrity="sha256-8DGpv13HIm+5iDNWw1XqxgFB4mj+yOKFNb+tHBZOowc="
+        crossorigin="anonymous"></script>
+    <script 
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" 
+        integrity="sha512-NFUcDlm4V+a2sjPX7gREIXgCSFja9cHtKPOL1zj6QhnE0vcY695MODehqkaGYTLyL2wxe/wtr4Z49SvqXq12UQ==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

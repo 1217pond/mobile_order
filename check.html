@@ -6,14 +6,33 @@
     <title>確認</title>
     <style>
         :root{
-            font-size: 6vw;
+            font-size: 4vw;
             font-family: sans-serif;
         }
         .gray_box{
             background-color: #bbb;
             padding: 1rem;
-            font-size: 1.5rem;
+            font-size: 2rem;
             text-align: center;
+        }
+        button{
+            margin: 15vw;
+            font-size:2rem;
+            width: 60vw;
+        }
+        .popup-window{
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height:100vh;
+            position: fixed;
+            z-index:10;
+            pointer-events: all;
+            background-color: #000000d0;
+            font-size: 2rem;
+            color: white;
+            text-align: center;
+            padding-top: 20rem;
         }
     </style>
 </head>
@@ -26,19 +45,22 @@
     <div class="gray_box" id="total_price"></div>
     <h1>注文内容</h1>
     <div class="gray_box" id="order_list"></div>
-
+    <button id="complete_trg">完了</button>
+    <div id="wait_window" class="popup-window" style="display:none"></div>
     <script
         src="https://code.jquery.com/jquery-4.0.0.slim.min.js"
         integrity="sha256-8DGpv13HIm+5iDNWw1XqxgFB4mj+yOKFNb+tHBZOowc="
         crossorigin="anonymous"></script>
 
     <script>
+        window.SERVER_ADDRESS = "https://script.google.com/macros/s/AKfycbzcC6BAv4YC3DLHGX4RxLZL1ro8YcS-KJJwauU8rZSp0weYaekcyuMI-EQOfGJcwsW0Kw/exec";
+
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const order_data = {
             "kebab":{
                 "price":0,
-                "name":"ケバブ"
+                "name":"ケバブ ※チケットをもらう！！"
             },
             "nope":{
                 "price":150,
@@ -74,6 +96,40 @@
         $("#total_price").text(`¥${total_price}-`);
         $("#order_list").html(order_text);
 
+        $("#complete_trg").on("click",e=>{
+            $("#wait_window").show();
+            $("#wait_window").text("完了処理中");
+            fetch(SERVER_ADDRESS,{
+                method:"POST",
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: JSON.stringify({
+                    type:"complete",
+                    uuid:urlParams.get("u")
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }else{
+                    throw new Error("Network response was not ok");
+                }
+            })
+            .then(data => {
+                if(data.result == "OK"){
+                    $("#wait_window").text("完了しました。");
+                    console.log(data);
+                }else{
+                    throw new Error(`ServerException: ${data.result}`);
+                }
+            })
+            .catch(e => {
+                $("#wait_window").text(`完了処理に失敗しました。少し時間を空けてからページを再読込してください。\n(${e.name}:${e.message})`);
+                $("#wait_window").show();
+                console.error('There was a problem with the fetch operation:', e);
+            });
+        });
     </script>
 </body>
 </html>

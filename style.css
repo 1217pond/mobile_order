@@ -8,6 +8,7 @@
 :root{
     font-size: 6vw;
     color: #fff;
+    touch-action: manipulation;
 }
 
 body{
@@ -73,4 +74,8 @@ header{
 
 #qr canvas{
     width: 100%;
+}
+
+.gray-img{
+    filter: grayscale(100%);
 }
