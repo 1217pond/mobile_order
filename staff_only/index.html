@@ -43,22 +43,43 @@
             text-align: center;
             padding-top: 20rem;
         }
+
+        #order_uuid{
+            color:gray;
+            font-size: 1em;
+        }
     </style>
 </head>
 <body>
     <h1>担当</h1>
     <h1>注文番号</h1>
     <div class="gray_box" id="order_id"></div>
+    <span id="order_uuid" class="center"></span>
     <h1>座席番号</h1>
     <div class="gray_box" id="seat_id"></div>
     <h1>合計金額</h1>
     <div class="gray_box" id="total_price"></div>
     <h1>注文内容</h1>
     <div class="gray_box" id="order_list"></div>
+    
+    <button id="complete_trg">配膳を完了しました</button>
     <button id="assign_trg">割り当ての取得</button>
-    <h1>引継ぎQR</h1>
-    <div class="gray_box" id="qr"></div>
+    <button id="change_trg">担当IDを切り替える</button>
     <div id="wait_window" class="popup-window" style="display:none"></div>
+    <div id="id_window" class="popup-window" style="display:none">
+        <p class="">あなたはの担当IDは何ですか？</p>
+        <button class="" id="id_a_trg">A</button>
+        <button class="" id="id_b_trg">B</button>
+    </div>
+    <div id="complete_window" class="popup-window" style="display:none">
+        <p class="">配膳は完了しましたか？</p>
+        <button class="" id="accept_comp_trg">完了</button>
+        <button class="" id="cancel_comp_trg">キャンセル</button>
+    </div>
+    <div id="alert_window" style="display:none" class="popup-window">
+        <p></p>
+        <button id="alert_close_trg">OK</button>
+    </div>
     <script
         src="https://code.jquery.com/jquery-4.0.0.slim.min.js"
         integrity="sha256-8DGpv13HIm+5iDNWw1XqxgFB4mj+yOKFNb+tHBZOowc="
