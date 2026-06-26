@@ -50,6 +50,7 @@ $("#change_trg").on("click",()=>{
 
 if(!params.has("uuid")){
     $("#id_window").show();
+    return
 }
 
 window.uuid = params.get("uuid");

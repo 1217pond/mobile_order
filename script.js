@@ -1,11 +1,13 @@
 $("#start_trg").on("click",()=>{
     console.log("start");
+    $("#start_trg").attr("disabled",true);
     setTimeout(()=>{
         $("#title_scene").hide();
         window.scroll({top: 0,behavior: "instant"});
         $("#menu_scene").show();
         $("#wait_window p").text("在庫を取得中");
         $("#wait_window").show();
+        
         fetch(SERVER_ADDRESS,{
             method:"POST",
             headers: {
@@ -40,6 +42,7 @@ $("#start_trg").on("click",()=>{
             }
         })
         .catch(e => {
+            $("#start_trg").attr("disabled",false);
             $("#wait_window").hide();
             $("#menu_scene").hide();
             $("#title_scene").show();
@@ -188,14 +191,55 @@ $("#order_apply_trg").on("click",()=>{
 
             window.uuid = data.uuid;
 
-            setInterval(()=>{
-                waiting_reload_timer--;
+            Cookies.remove("rights");
+
+            interval_obj = setInterval(()=>{
+                console.log("count");
                 if(waiting_reload_timer > 0){
-                    $("#reload_trg").text(`${waiting_reload_timer}秒後に人数を再取得可能`);
-                    $("#reload_trg").attr("disabled",true);
-                }else{
-                    $("#reload_trg").text("人数を再取得する");
-                    $("#reload_trg").attr("disabled",false);
+                    $("#remaining_time").text(`更新まで：${waiting_reload_timer}s`);
+                    waiting_reload_timer--;
+                }else if(waiting_reload_timer == 0){
+                    waiting_reload_timer = -100;
+
+                    $("#remaining_time").text(`読み込み中…`);
+
+                    fetch(SERVER_ADDRESS,{
+                        method:"POST",
+                        headers: {
+                            'Content-Type': 'text/plain'
+                        },
+                        body: JSON.stringify({
+                            type:"waiting_count",
+                            uuid:uuid,
+                        })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        }else{
+                            throw new Error("Network response was not ok");
+                        }
+                    })
+                    .then(data => {
+                        if(data.result == "OK"){
+                            console.log(data);
+                            $("#remaining_time").text(`更新まで：60s`);
+                            waiting_reload_timer = 59;
+                            $("#waiting_count").text(data.waiting_count);
+                        }else if(data.result == "Done"){
+                            clearInterval(interval_obj);
+                            console.log(data);
+                            $("#receipt_scene").hide();
+                            $("#complete_scene").show();
+                        }else{
+                            throw new Error(`ServerException: ${data.result}`);
+                        }
+                    })
+                    .catch(e => {
+                        $("#remaining_time").text(`更新まで：60s`);
+                        waiting_reload_timer = 59;
+                        console.error('There was a problem with the fetch operation:', e);
+                    });
                 }
             },1000);
 
@@ -222,50 +266,17 @@ $("#order_apply_trg").on("click",()=>{
     });
 });
 
-$("#reload_trg").on("click",e=>{
-    $("#wait_window p").text("人数を再取得中");
-    $("#wait_window").show();
-
-    fetch(SERVER_ADDRESS,{
-        method:"POST",
-        headers: {
-            'Content-Type': 'text/plain'
-        },
-        body: JSON.stringify({
-            type:"waiting_count",
-            uuid:uuid,
-        })
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        }else{
-            throw new Error("Network response was not ok");
-        }
-    })
-    .then(data => {
-        if(data.result == "OK"){
-            console.log(data);
-            $("#wait_window").hide();
-            $("#waiting_count").text(data.waiting_count);
-            waiting_reload_timer = 60;
-        }else{
-            throw new Error(`ServerException: ${data.result}`);
-        }
-    })
-    .catch(e => {
-        $("#wait_window").hide();
-        $("#alert_window p").text(`人数の取得に失敗しました。少し時間を空けてから再度開始してください。\n(${e.name}:${e.message})`);
-        $("#alert_window").show();
-        console.error('There was a problem with the fetch operation:', e);
-    });
-});
-
 window.waiting_reload_timer = 60;
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 $("#seat_id").text(urlParams.get("seat_id"));
+
+if(Cookies.get("rights") == "PSrpbtx3wscOYxBB"){
+    $("#title_scene").show();
+}else{
+    $("#entrance_scene").show();
+}
 
 window.order_data = {
     "kebab":{
@@ -303,7 +314,7 @@ window.order_data = {
         "price":100,
         "remain":0,
         "name":"ドンタコス"
-    },
+    }
 };
 
 window.SERVER_ADDRESS = "https://script.google.com/macros/s/AKfycbzcC6BAv4YC3DLHGX4RxLZL1ro8YcS-KJJwauU8rZSp0weYaekcyuMI-EQOfGJcwsW0Kw/exec";

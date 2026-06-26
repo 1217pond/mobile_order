@@ -10,7 +10,13 @@
     <link rel="preload" as="font" href="./fonts/KH-Dot-Akihabara-16.ttf">
 </head>
 <body>
-    <div id="title_scene" class="scene">
+    <div id="entrance_scene" class="scene" style="display:none">
+        <header>NEON SPICE</header>
+        <section class="cyberpunk">
+            <p>注文用QRの有効期限が切れました。注文を続けたい場合はもう一度注文用QRを読み込んでください。二回以上の注文や店外での注文は禁止されています。</p>
+        </section>
+    </div>
+    <div id="title_scene" class="scene" style="display:none">
         <section class="cyberpunk">
             <h1 class="cyberpunk glitched center">NEON SPICE</h1>
 
@@ -152,10 +158,10 @@
         </section>
     </div>
     <div class="scene" id="receipt_scene" style="display:none">
-        <header>？？？？？レストラン</header>
+        <header>NEON SPICE</header>
         <section class="cyberpunk">
             <h1>注文完了</h1>
-            <p>下の注文IDのスクリーンショットを撮っておいてください。食事はスタッフがお運びしますので、お金を用意して、席でお待ちください。</p>
+            <p>下の注文番号のスクリーンショットを撮っておいてください。食事はスタッフがお運びしますので、お金を用意して、席でお待ちください。</p>
         </section>
         <section class="cyberpunk black both">
             <h3>合計金額</h3>
@@ -168,7 +174,13 @@
             <p class="center">
                 <span id="waiting_count"></span>名
             </p>
-            <button class="cyberpunk red center" id="reload_trg" disabled>60秒後に人数を再取得可能</button>
+            <span id="remaining_time"></span>
+        </section>
+    </div>
+    <div class="scene" id="complete_scene" style="display:none">
+        <header>NEON SPICE</header>
+        <section class="cyberpunk">
+            <p>配膳を完了しました。</p>
         </section>
     </div>
     <div id="wait_window" style="display:none" class="popup-window">
@@ -193,6 +205,7 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" 
         integrity="sha512-NFUcDlm4V+a2sjPX7gREIXgCSFja9cHtKPOL1zj6QhnE0vcY695MODehqkaGYTLyL2wxe/wtr4Z49SvqXq12UQ==" 
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

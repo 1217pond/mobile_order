@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+</head>
+<body>
+    <script>
+        if(navigator.cookieEnabled){
+            document.cookie = "rights=PSrpbtx3wscOYxBB;max-age=300";
+        }else{
+            alert("Cookieが有効になっていません。有効にしてください。シークレットモードでは動作しない可能性があります。")
+        }
+        location.replace("./index.html"+window.location.search);
+    </script>
+</body>
+</html>
