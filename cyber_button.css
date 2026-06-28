@@ -30,7 +30,7 @@
   position: relative;
   font-weight: 700;
   border: 0;
-  min-width: 300px;
+  min-width: 100px;
   height: 75px;
   line-height: 75px;
   transition: background 0.2s;

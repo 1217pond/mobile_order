@@ -96,7 +96,7 @@ $(".increment_trg").on("click",e=>{
         target.siblings(".decrement_trg").attr("disabled",false);
     }
     order_data[meal_id].count++;
-    if(order_data[meal_id].count == order_data[meal_id].remain){
+    if(order_data[meal_id].count == order_data[meal_id].remain || order_data[meal_id].count == order_data[meal_id].max){
         target.attr("disabled",true);
     }
     target.siblings(".text_count").text(order_data[meal_id].count);
@@ -106,7 +106,7 @@ $(".decrement_trg").on("click",e=>{
     target = $(e.target);
     meal_id = target.data("target");
     console.log(meal_id,order_data[meal_id]);
-    if(order_data[meal_id].count == order_data[meal_id].remain){
+    if(order_data[meal_id].count == order_data[meal_id].remain || order_data[meal_id].count == order_data[meal_id].max){
         target.siblings(".increment_trg").attr("disabled",false);
     }
     order_data[meal_id].count--;
@@ -275,7 +275,7 @@ $("#seat_id").text(urlParams.get("seat_id"));
 if(Cookies.get("rights") == "PSrpbtx3wscOYxBB"){
     $("#title_scene").show();
 }else{
-    $("#entrance_scene").show();
+    location.replace("timeover.html");
 }
 
 window.order_data = {
@@ -283,36 +283,42 @@ window.order_data = {
         "count":0,
         "price":0,
         "remain":0,
+        "max":0,
         "name":"ケバブ"
     },
     "nope":{
         "count":0,
-        "price":150,
+        "price":30,
         "remain":0,
+        "max":3,
         "name":"NOPE"
     },
     "ice":{
         "count":0,
-        "price":80,
+        "price":50,
         "remain":0,
+        "max":3,
         "name":"かき氷"
     },
     "crepe":{
         "count":0,
-        "price":120,
+        "price":50,
         "remain":0,
+        "max":3,
         "name":"クレープ"
     },
     "chicken":{
         "count":0,
-        "price":130,
+        "price":40,
         "remain":0,
+        "max":3,
         "name":"焼き鳥"
     },
     "doritos":{
         "count":0,
-        "price":100,
+        "price":30,
         "remain":0,
+        "max":3,
         "name":"ドンタコス"
     }
 };

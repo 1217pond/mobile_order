@@ -51,9 +51,9 @@
     </style>
 </head>
 <body>
-    <h1>担当</h1>
+    <h1 id="assign_id">担当</h1>
     <h1>注文番号</h1>
-    <div class="gray_box" id="order_id"></div>
+    <div class="gray_box" id="order_id">割り当てを担当していません</div>
     <span id="order_uuid" class="center"></span>
     <h1>座席番号</h1>
     <div class="gray_box" id="seat_id"></div>
@@ -62,8 +62,8 @@
     <h1>注文内容</h1>
     <div class="gray_box" id="order_list"></div>
     
-    <button id="complete_trg">配膳を完了しました</button>
-    <button id="assign_trg">割り当ての取得</button>
+    <button id="complete_trg" style="display:none">配膳を完了しました</button>
+    <button id="assign_trg">次の割り当てを担当</button>
     <button id="change_trg">担当IDを切り替える</button>
     <div id="wait_window" class="popup-window" style="display:none"></div>
     <div id="id_window" class="popup-window" style="display:none">
@@ -75,6 +75,11 @@
         <p class="">配膳は完了しましたか？</p>
         <button class="" id="accept_comp_trg">完了</button>
         <button class="" id="cancel_comp_trg">キャンセル</button>
+    </div>
+    <div id="assign_window" class="popup-window" style="display:none">
+        <p class="">次の割り当てを担当しますか？</p>
+        <button class="" id="accept_assign_trg">はい</button>
+        <button class="" id="cancel_assign_trg">いいえ</button>
     </div>
     <div id="alert_window" style="display:none" class="popup-window">
         <p></p>

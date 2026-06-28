@@ -1,9 +1,6 @@
 window.onload = ()=>{
 
-if(!navigator.cookieEnabled){
-    alert("cookieを有効化してください。プライベートモードでは無効化される場合があります。");
-    return;
-}
+
 
 const url = new URL(window.location.href);
 const params = url.searchParams;
@@ -13,25 +10,25 @@ const order_data = {
         "name":"ケバブ"
     },
     "nope":{
-        "price":150,
+        "price":30,
         "name":"NOPE"
     },
     "ice":{
-        "price":80,
+        "price":50,
         "name":"かき氷"
     },
     "crepe":{
-        "price":120,
+        "price":50,
         "name":"クレープ"
     },
     "chicken":{
-        "price":130,
+        "price":40,
         "name":"焼き鳥"
     },
     "doritos":{
-        "price":100,
+        "price":30,
         "name":"ドンタコス"
-    },
+    }
 };
 
 $("#id_a_trg").on("click",()=>{
@@ -55,6 +52,11 @@ if(!params.has("uuid")){
 
 window.uuid = params.get("uuid");
 console.log(uuid);
+
+$("#assign_id").text({
+    "staff_A":"担当A",
+    "staff_B":"担当B"
+}[uuid]);
 
 $("#complete_trg").on("click",e=>{
     $("#complete_window").show();
@@ -104,8 +106,25 @@ $("#accept_comp_trg").on("click",e=>{
 $("#alert_close_trg").on("click",()=>{
     $("#alert_window").hide();
     if($("#alert_window p").text() == "完了しました。"){
-        reload_assignment();
+        $("#assign_window").show();
     }
+});
+
+$("#accept_assign_trg").on("click",()=>{
+    $("#assign_window").hide();
+    reload_assignment();
+});
+
+$("#cancel_assign_trg").on("click",()=>{
+    $("#assign_window").hide();
+    $("#order_id").text("割り当てを担当していません");
+    $("#seat_id").text("");
+    $("#total_price").text("");
+    $("#order_list").text("");
+    $("#wait_window").hide();
+
+    $("#complete_trg").hide();
+    $("#assign_trg").show();
 });
 
 $("#assign_trg").on("click",reload_assignment);
@@ -152,7 +171,7 @@ function reload_assignment(){
             $("#assign_trg").hide();
 
         }else if(data.result == "NoJob"){
-            $("#order_id").text("現在割り当てなし");
+            $("#order_id").text(`${(new Date()).toLocaleTimeString()}時点仕事なし`);
             $("#seat_id").text("");
             $("#total_price").text("");
             $("#order_list").text("");
@@ -170,8 +189,6 @@ function reload_assignment(){
         console.error('There was a problem with the fetch operation:', e);
     });
 }
-
-reload_assignment();
 
 }
 
