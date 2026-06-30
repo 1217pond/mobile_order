@@ -191,55 +191,64 @@ $("#order_apply_trg").on("click",()=>{
 
             window.uuid = data.uuid;
 
-            Cookies.remove("rights");
+            Cookies.set("rights","removed",{"expires":1e-10});
+            
+            last_reload_time = Date.now();
 
             interval_obj = setInterval(()=>{
                 console.log("count");
-                if(waiting_reload_timer > 0){
-                    $("#remaining_time").text(`更新まで：${waiting_reload_timer}s`);
-                    waiting_reload_timer--;
-                }else if(waiting_reload_timer == 0){
-                    waiting_reload_timer = -100;
+                if(last_reload_time != -1){
+                    elapsed_time = Date.now() - last_reload_time;
+                    if(elapsed_time < reload_span){
+                        $("#remaining_time").text(`更新まで：${Math.round((reload_span-elapsed_time)/1000)}s`);
+                    }else if(elapsed_time >= reload_span){
+                        last_reload_time = -1
 
-                    $("#remaining_time").text(`読み込み中…`);
+                        $("#remaining_time").text(`読み込み中…`);
 
-                    fetch(SERVER_ADDRESS,{
-                        method:"POST",
-                        headers: {
-                            'Content-Type': 'text/plain'
-                        },
-                        body: JSON.stringify({
-                            type:"waiting_count",
-                            uuid:uuid,
+                        fetch(SERVER_ADDRESS,{
+                            method:"POST",
+                            headers: {
+                                'Content-Type': 'text/plain'
+                            },
+                            body: JSON.stringify({
+                                type:"waiting_count",
+                                uuid:uuid,
+                            })
                         })
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            return response.json();
-                        }else{
-                            throw new Error("Network response was not ok");
-                        }
-                    })
-                    .then(data => {
-                        if(data.result == "OK"){
-                            console.log(data);
-                            $("#remaining_time").text(`更新まで：60s`);
-                            waiting_reload_timer = 59;
-                            $("#waiting_count").text(data.waiting_count);
-                        }else if(data.result == "Done"){
-                            clearInterval(interval_obj);
-                            console.log(data);
-                            $("#receipt_scene").hide();
-                            $("#complete_scene").show();
-                        }else{
-                            throw new Error(`ServerException: ${data.result}`);
-                        }
-                    })
-                    .catch(e => {
-                        $("#remaining_time").text(`更新まで：60s`);
-                        waiting_reload_timer = 59;
-                        console.error('There was a problem with the fetch operation:', e);
-                    });
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json();
+                            }else{
+                                throw new Error("Network response was not ok");
+                            }
+                        })
+                        .then(data => {
+                            if(data.result == "OK"){
+                                console.log(data);
+                                last_reload_time = Date.now();
+                                $("#waiting_count").text(data.waiting_count);
+                            }else if(data.result == "Done"){
+                                clearInterval(interval_obj);
+                                console.log(data);
+                                $("#receipt_scene").hide();
+                                $("#complete_scene").show();
+                            }else if(data.result == "UuidDoesNotExist"){
+                                clearInterval(interval_obj);
+                                console.log(data);
+                                $("#alert_window p").text(`サーバー上で注文が記録されていませんでした。注文が混雑している可能性があるので、注文を最初からやり直してください。\n(Error: ServerException: UuidDoesNotExist)`);
+                                Cookies.set("rights","PSrpbtx3wscOYxBB",{"expires":1/24/12});
+                                $("#alert_close_trg").on("click",()=>{location.reload()});
+                                $("#alert_window").show();
+                            }else{
+                                throw new Error(`ServerException: ${data.result}`);
+                            }
+                        })
+                        .catch(e => {
+                            last_reload_time = Date.now();
+                            console.error('There was a problem with the fetch operation:', e);
+                        });
+                    }
                 }
             },1000);
 
@@ -250,6 +259,7 @@ $("#order_apply_trg").on("click",()=>{
         }else if(data.result == "RemainShortage"){
             $("#wait_window").hide();
             $("#alert_window p").text(`ページを開いてから注文するまでの間に売り切れた料理がある可能性があります。注文を最初からやり直してください。\n(Error: ServerException: RemainShortage)`);
+            Cookies.set("rights","PSrpbtx3wscOYxBB",{"expires":1/24/12});
             $("#alert_close_trg").on("click",()=>{location.reload()});
             $("#alert_window").show();
         }else{
@@ -266,7 +276,8 @@ $("#order_apply_trg").on("click",()=>{
     });
 });
 
-window.waiting_reload_timer = 60;
+window.last_reload_time = -1;
+window.reload_span = 30000;
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
