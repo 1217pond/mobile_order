@@ -236,7 +236,7 @@ $("#order_apply_trg").on("click",()=>{
                             }else if(data.result == "UuidDoesNotExist"){
                                 clearInterval(interval_obj);
                                 console.log(data);
-                                $("#alert_window p").text(`サーバー上で注文が記録されていませんでした。注文が混雑している可能性があるので、注文を最初からやり直してください。\n(Error: ServerException: UuidDoesNotExist)`);
+                                $("#alert_window p").text(`サーバー上で注文が記録されていませんでした。注文が混雑している可能性があるので、OKを押して注文を最初からやり直してください。\n(Error: ServerException: UuidDoesNotExist)`);
                                 Cookies.set("rights","PSrpbtx3wscOYxBB",{"expires":1/24/12});
                                 $("#alert_close_trg").on("click",()=>{location.reload()});
                                 $("#alert_window").show();
@@ -258,7 +258,7 @@ $("#order_apply_trg").on("click",()=>{
             $("#receipt_scene").show();
         }else if(data.result == "RemainShortage"){
             $("#wait_window").hide();
-            $("#alert_window p").text(`ページを開いてから注文するまでの間に売り切れた料理がある可能性があります。注文を最初からやり直してください。\n(Error: ServerException: RemainShortage)`);
+            $("#alert_window p").text(`ページを開いてから注文するまでの間に売り切れた料理がある可能性があります。OKを押して注文を最初からやり直してください。\n(Error: ServerException: RemainShortage)`);
             Cookies.set("rights","PSrpbtx3wscOYxBB",{"expires":1/24/12});
             $("#alert_close_trg").on("click",()=>{location.reload()});
             $("#alert_window").show();
