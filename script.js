@@ -301,35 +301,35 @@ window.order_data = {
         "count":0,
         "price":30,
         "remain":0,
-        "max":3,
+        "max":2,
         "name":"NOPE"
     },
     "ice":{
         "count":0,
         "price":50,
         "remain":0,
-        "max":3,
+        "max":2,
         "name":"かき氷"
     },
     "crepe":{
         "count":0,
         "price":50,
         "remain":0,
-        "max":3,
+        "max":2,
         "name":"クレープ"
     },
     "chicken":{
         "count":0,
         "price":40,
         "remain":0,
-        "max":3,
+        "max":2,
         "name":"焼き鳥"
     },
     "doritos":{
         "count":0,
         "price":30,
         "remain":0,
-        "max":3,
+        "max":2,
         "name":"ドンタコス"
     }
 };
